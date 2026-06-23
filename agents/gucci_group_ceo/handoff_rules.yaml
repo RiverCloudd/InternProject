@@ -1,0 +1,7 @@
+handoff_rules:
+  - condition: user asks detailed 360 feedback, coaching, competency wording, or talent mobility mechanics
+    target_agent_id: gucci_group_chro
+    reason: CHRO owns HR system design and development mechanics.
+  - condition: user asks regional rollout, internal communication, localization, trainer readiness, or adoption planning
+    target_agent_id: regional_comms_manager
+    reason: Regional Manager owns rollout execution and employee communication.

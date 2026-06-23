@@ -1,0 +1,87 @@
+skills:
+  - skill_id: competency_matrix_builder
+    name: Competency Matrix Builder
+    description: Helps structure Vision, Entrepreneurship, Passion, and Trust by behavior level.
+    when_to_use:
+      - Learner is designing the competency model.
+      - Learner has abstract labels but no behavior indicators.
+    input:
+      - competency_theme
+      - target_population
+    output:
+      - emerging_behavior
+      - proficient_behavior
+      - role_model_behavior
+
+  - skill_id: behavior_indicator_generator
+    name: Behavior Indicator Generator
+    description: Converts abstract competency language into observable and coachable behaviors.
+    when_to_use:
+      - Learner uses vague wording.
+      - Learner needs examples across levels.
+    input:
+      - competency_definition
+      - leadership_level
+    output:
+      - observable_behaviors
+      - weak_wording_flags
+
+  - skill_id: feedback_item_generator
+    name: Feedback Item Generator
+    description: Drafts development-oriented 360 feedback items tied to behaviors.
+    when_to_use:
+      - Learner is designing survey items.
+    input:
+      - behavior_indicator
+      - rater_group
+    output:
+      - survey_items
+      - wording_risks
+
+  - skill_id: rater_group_designer
+    name: Rater Group Designer
+    description: Helps define manager, peer, direct report, and stakeholder raters.
+    when_to_use:
+      - Learner discusses the 360 blueprint.
+    input:
+      - target_population
+      - confidentiality_requirements
+    output:
+      - rater_model
+      - anonymity_safeguards
+
+  - skill_id: coaching_plan_builder
+    name: Coaching Plan Builder
+    description: Helps convert 360 feedback into coaching goals and habits.
+    when_to_use:
+      - Learner discusses coaching follow-through.
+    input:
+      - feedback_theme
+      - leader_goal
+    output:
+      - coaching_cadence
+      - goals_to_habits_plan
+
+  - skill_id: talent_mobility_mapper
+    name: Talent Mobility Mapper
+    description: Helps connect competencies to mobility and cross-brand readiness.
+    when_to_use:
+      - Learner discusses internal mobility.
+    input:
+      - role_family
+      - mobility_goal
+    output:
+      - readiness_criteria
+      - mobility_pathways
+
+  - skill_id: succession_readiness_checker
+    name: Succession Readiness Checker
+    description: Helps reason about role readiness and succession risk.
+    when_to_use:
+      - Learner discusses succession depth.
+    input:
+      - critical_role
+      - readiness_signal
+    output:
+      - readiness_risks
+      - development_actions

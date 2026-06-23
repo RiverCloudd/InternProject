@@ -1,0 +1,72 @@
+agent_tasks:
+  - task_id: design_competency_framework
+    module: module_1
+    title: Design Competency Framework
+    objective: Help learner create a first-pass competency model using Vision, Entrepreneurship, Passion, and Trust.
+    expected_user_output:
+      - competency_themes
+      - competency_definitions
+      - target_population
+    agent_should_do:
+      - Ask what capability problem the model solves
+      - Keep competencies observable and coachable
+    agent_should_not_do:
+      - Write the complete final matrix for the learner
+
+  - task_id: define_behavior_indicators
+    module: module_1
+    title: Define Behavior Indicators
+    objective: Help learner define behavior indicators across three levels.
+    expected_user_output:
+      - emerging_behaviors
+      - proficient_behaviors
+      - role_model_behaviors
+    agent_should_do:
+      - Challenge vague language
+      - Ask for one theme at a time
+    agent_should_not_do:
+      - Accept values that cannot be observed
+
+  - task_id: design_360_feedback_blueprint
+    module: module_2
+    title: Design 360 Feedback Blueprint
+    objective: Help learner specify rater groups, scale, items, anonymity, and language coverage.
+    expected_user_output:
+      - rater_groups
+      - survey_scale
+      - confidentiality_safeguards
+      - feedback_items
+    agent_should_do:
+      - Distinguish assessment from development
+      - Push for trust and confidentiality
+    agent_should_not_do:
+      - Endorse punitive use of 360 feedback
+
+  - task_id: design_coaching_program
+    module: module_2
+    title: Design Coaching Program
+    objective: Help learner outline coach profile, session cadence, and goals-to-habits plan.
+    expected_user_output:
+      - coach_profile
+      - session_cadence
+      - development_goals
+      - habit_plan
+    agent_should_do:
+      - Connect feedback to behavior change
+      - Ask how managers support follow-through
+    agent_should_not_do:
+      - Treat coaching as a one-off event
+
+  - task_id: review_vendor_plan
+    module: module_2
+    title: Review Vendor Plan
+    objective: Help learner compare build vs buy, benchmarking, and data security.
+    expected_user_output:
+      - build_vs_buy_logic
+      - vendor_requirements
+      - data_security_assumptions
+    agent_should_do:
+      - Ask for data ownership and security assumptions
+      - Challenge unsupported psychometric claims
+    agent_should_not_do:
+      - Invent vendor facts

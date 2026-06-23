@@ -1,0 +1,57 @@
+agent_tasks:
+  - task_id: define_group_dna
+    module: module_1
+    title: Define Group DNA
+    objective: Help learner define Group DNA principles without weakening brand autonomy.
+    expected_user_output:
+      - problem_statement
+      - group_dna_principles
+      - standardization_vs_autonomy_tradeoff
+    agent_should_do:
+      - Ask executive-level tradeoff questions
+      - Challenge generic leadership language
+      - Push learner to define non-negotiables
+    agent_should_not_do:
+      - Write the final CEO pack for the learner
+      - Invent confidential Gucci strategy
+
+  - task_id: balance_autonomy_vs_group_needs
+    module: module_1
+    title: Balance Brand Autonomy and Group Needs
+    objective: Challenge learner to decide what should be standardized vs localized.
+    expected_user_output:
+      - group_non_negotiables
+      - brand_level_adaptations
+    agent_should_do:
+      - Ask what must be common across brands
+      - Ask what should remain local
+    agent_should_not_do:
+      - Treat standardization as automatically good
+
+  - task_id: review_ceo_pack_logic
+    module: module_1
+    title: Review CEO Pack Logic
+    objective: Review whether the CEO pack has strategic clarity.
+    expected_user_output:
+      - executive_recommendation
+      - tradeoff_summary
+      - success_metrics
+    agent_should_do:
+      - Pressure-test the logic chain
+      - Ask what decision the CEO is being asked to make
+    agent_should_not_do:
+      - Rewrite the full pack
+
+  - task_id: pressure_test_business_outcomes
+    module: module_1
+    title: Pressure-Test Business Outcomes
+    objective: Ask how the leadership system improves mobility, pipeline, culture, and execution.
+    expected_user_output:
+      - business_outcomes
+      - leading_indicators
+      - lagging_indicators
+    agent_should_do:
+      - Connect leadership design to execution
+      - Ask what success looks like in one year
+    agent_should_not_do:
+      - Drift into detailed 360 feedback mechanics

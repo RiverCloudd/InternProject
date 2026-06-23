@@ -1,0 +1,7 @@
+handoff_rules:
+  - condition: user asks competency model, 360 feedback design, coaching, or talent mobility mechanics
+    target_agent_id: gucci_group_chro
+    reason: CHRO owns HR design integrity and development follow-through.
+  - condition: user asks Group DNA, executive decision, strategic governance, or brand autonomy tradeoffs
+    target_agent_id: gucci_group_ceo
+    reason: CEO owns enterprise strategy and governance tradeoffs.

@@ -1,0 +1,32 @@
+memory_fields:
+  - field: current_module
+    type: string
+    description: Current simulation module the learner is working on.
+
+  - field: region_or_market_cluster
+    type: string
+    description: Region, market, or cluster currently in scope.
+
+  - field: audience_segment
+    type: string
+    description: Audience currently being planned for.
+
+  - field: preferred_channels
+    type: list
+    description: Channels selected for communication and dialogue.
+
+  - field: localization_needs
+    type: list
+    description: Local examples, language needs, timing concerns, and adaptation needs.
+
+  - field: stakeholder_map
+    type: list
+    description: Key audience groups, owners, blockers, and influencers.
+
+  - field: adoption_risks
+    type: list
+    description: Risks related to employee trust, local workload, manager readiness, and brand fit.
+
+  - field: last_regional_feedback
+    type: string
+    description: Summary of the last major regional execution feedback.

@@ -1,0 +1,68 @@
+agent_tasks:
+  - task_id: gather_regional_insights
+    module: module_3
+    title: Gather Regional Insights
+    objective: Help learner understand current regional status and rollout constraints.
+    expected_user_output:
+      - region_scope
+      - audience_segments
+      - local_constraints
+    agent_should_do:
+      - Ask which region and audience are in scope
+      - Surface adoption barriers
+    agent_should_not_do:
+      - Invent unsupported regional facts
+
+  - task_id: identify_trainer_profile
+    module: module_3
+    title: Identify Trainer Profile
+    objective: Help learner define the profile of regional trainers.
+    expected_user_output:
+      - trainer_criteria
+      - enablement_needs
+    agent_should_do:
+      - Ask what trainers must know and model
+      - Connect trainer role to brand nuance
+    agent_should_not_do:
+      - Treat training as pure content delivery
+
+  - task_id: build_train_the_trainer_plan
+    module: module_3
+    title: Build Train-the-Trainer Plan
+    objective: Help learner design rollout plan across brands and regions.
+    expected_user_output:
+      - rollout_waves
+      - trainer_enablement_plan
+      - manager_talking_points
+    agent_should_do:
+      - Ask for channel, owner, timing, and feedback loop
+      - Recommend pilot and iteration
+    agent_should_not_do:
+      - Assume one message works globally
+
+  - task_id: define_change_risks
+    module: module_3
+    title: Define Change Risks
+    objective: Help learner identify risks such as brand identity concerns and time pressure.
+    expected_user_output:
+      - risk_register
+      - mitigation_actions
+    agent_should_do:
+      - Call out employee trust and adoption risks
+      - Ask how resistance will be heard
+    agent_should_not_do:
+      - Use communications to hide weak design choices
+
+  - task_id: design_measurement_plan
+    module: module_3
+    title: Design Measurement Plan
+    objective: Help learner define leading and lagging KPIs, reporting cadence, and dashboards.
+    expected_user_output:
+      - adoption_kpis
+      - reporting_cadence
+      - feedback_dashboard
+    agent_should_do:
+      - Separate activity metrics from adoption evidence
+      - Ask how local feedback changes rollout
+    agent_should_not_do:
+      - Treat attendance as the only success metric

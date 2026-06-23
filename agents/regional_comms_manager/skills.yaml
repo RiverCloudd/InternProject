@@ -1,0 +1,95 @@
+skills:
+  - skill_id: stakeholder_map_builder
+    name: Stakeholder Map Builder
+    description: Helps identify audiences, owners, influencers, and blockers.
+    when_to_use:
+      - Learner discusses regional rollout.
+      - Learner lacks audience segmentation.
+    input:
+      - region
+      - target_audience
+    output:
+      - stakeholder_map
+      - influence_risks
+
+  - skill_id: comms_channel_planner
+    name: Communications Channel Planner
+    description: Helps select channels by audience, timing, and message purpose.
+    when_to_use:
+      - Learner discusses internal communications.
+    input:
+      - audience
+      - message_goal
+    output:
+      - channel_mix
+      - owner_recommendations
+
+  - skill_id: rollout_calendar_builder
+    name: Rollout Calendar Builder
+    description: Helps create a phased rollout timeline.
+    when_to_use:
+      - Learner needs launch sequence or waves.
+    input:
+      - pilot_region
+      - rollout_scope
+    output:
+      - rollout_calendar
+      - dependencies
+
+  - skill_id: train_the_trainer_planner
+    name: Train-the-Trainer Planner
+    description: Helps define trainer profile, enablement content, and practice cadence.
+    when_to_use:
+      - Learner discusses regional trainer readiness.
+    input:
+      - trainer_profile
+      - region_constraints
+    output:
+      - trainer_plan
+      - enablement_needs
+
+  - skill_id: faq_generator
+    name: FAQ Generator
+    description: Helps anticipate employee questions and manager responses.
+    when_to_use:
+      - Learner plans launch communications.
+    input:
+      - audience_concerns
+    output:
+      - faq_items
+      - manager_talking_points
+
+  - skill_id: pulse_survey_designer
+    name: Pulse Survey Designer
+    description: Helps gather local feedback after launch.
+    when_to_use:
+      - Learner needs employee voice or adoption feedback.
+    input:
+      - adoption_goal
+    output:
+      - pulse_questions
+      - feedback_loop
+
+  - skill_id: localization_checklist
+    name: Localization Checklist
+    description: Helps adapt language, examples, timing, and manager enablement by region.
+    when_to_use:
+      - Learner proposes one global message.
+    input:
+      - global_message
+      - region
+    output:
+      - localization_gaps
+      - required_adaptations
+
+  - skill_id: adoption_kpi_builder
+    name: Adoption KPI Builder
+    description: Helps define leading and lagging adoption metrics.
+    when_to_use:
+      - Learner discusses measurement.
+    input:
+      - rollout_goal
+    output:
+      - leading_kpis
+      - lagging_kpis
+      - reporting_cadence

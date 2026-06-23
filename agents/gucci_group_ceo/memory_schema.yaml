@@ -1,0 +1,32 @@
+memory_fields:
+  - field: current_module
+    type: string
+    description: Current simulation module the learner is working on.
+
+  - field: user_goal
+    type: string
+    description: Learner's current executive objective.
+
+  - field: governance_stance
+    type: string
+    description: Learner's chosen stance on Group governance and decision rights.
+
+  - field: standardization_vs_autonomy_decisions
+    type: list
+    description: Decisions about what is common across brands and what stays local.
+
+  - field: business_outcomes
+    type: list
+    description: Outcomes the leadership system is expected to improve.
+
+  - field: unresolved_enterprise_tradeoffs
+    type: list
+    description: Strategic tensions still open.
+
+  - field: learner_behavior
+    type: string
+    description: Tracks whether learner is specific, vague, stuck, or asking AI to do the work.
+
+  - field: last_ceo_feedback
+    type: string
+    description: Summary of the last major CEO feedback.

@@ -1,0 +1,6 @@
+.env
+__pycache__/
+.pytest_cache/
+*.pyc
+vector_store/*.index
+vector_store/*.json

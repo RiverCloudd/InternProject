@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Co-worker Engine</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="workspace">
+        <aside class="side-panel">
+          <div>
+            <p class="eyebrow">Job Simulation</p>
+            <h1 id="agentTitle">Gucci Group CHRO</h1>
+            <p id="agentDescription" class="muted">
+              A strategic HR stakeholder helps you pressure-test leadership and talent development decisions.
+            </p>
+          </div>
+
+          <div class="status-block">
+            <h2>Agent</h2>
+            <select id="agentSelect" aria-label="Select AI co-worker"></select>
+          </div>
+
+          <div class="status-block">
+            <h2>Session State</h2>
+            <dl id="stateList">
+              <div><dt>Module</dt><dd>orientation</dd></div>
+              <div><dt>Confidence</dt><dd>unknown</dd></div>
+              <div><dt>Stuck turns</dt><dd>0</dd></div>
+            </dl>
+          </div>
+
+          <div class="status-block">
+            <h2>Deliverables</h2>
+            <ul id="deliverables"></ul>
+          </div>
+
+          <div class="status-block">
+            <h2>Collaboration</h2>
+            <ul id="collaborationList"></ul>
+          </div>
+
+          <div class="status-block">
+            <h2>RAG Sources</h2>
+            <ul id="ragSources"></ul>
+          </div>
+
+          <button id="promptButton" class="prompt-button" type="button">System Prompt</button>
+        </aside>
+
+        <section class="chat-panel">
+          <div class="chat-header">
+            <div>
+              <p class="eyebrow">AI Co-worker</p>
+              <h2>Strategic guidance chat</h2>
+            </div>
+            <button id="resetButton" type="button" title="Start a new session">Reset</button>
+          </div>
+
+          <div id="messages" class="messages" aria-live="polite"></div>
+
+          <form id="chatForm" class="composer">
+            <textarea
+              id="messageInput"
+              name="message"
+              rows="3"
+              placeholder="Ask the selected AI co-worker about the simulation..."
+              required
+            ></textarea>
+            <button type="submit">Send</button>
+          </form>
+        </section>
+      </section>
+    </main>
+
+    <dialog id="promptDialog" class="prompt-dialog">
+      <div class="prompt-dialog-header">
+        <h2>System Prompt</h2>
+        <button id="closePromptButton" type="button" title="Close">Close</button>
+      </div>
+      <pre id="promptText"></pre>
+    </dialog>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>

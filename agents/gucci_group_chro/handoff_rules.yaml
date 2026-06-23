@@ -1,0 +1,7 @@
+handoff_rules:
+  - condition: user asks enterprise strategy, Group DNA, CEO pack, governance, or brand autonomy tradeoffs
+    target_agent_id: gucci_group_ceo
+    reason: CEO owns enterprise-level strategic coherence and autonomy tradeoffs.
+  - condition: user asks regional rollout, communication channels, localization, trainer readiness, or adoption KPIs
+    target_agent_id: regional_comms_manager
+    reason: Regional Manager owns local rollout execution and employee voice.

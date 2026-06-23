@@ -1,0 +1,32 @@
+memory_fields:
+  - field: current_module
+    type: string
+    description: Current simulation module the learner is working on.
+
+  - field: competency_draft_status
+    type: string
+    description: Tracks whether the learner has drafted Vision, Entrepreneurship, Passion, and Trust.
+
+  - field: target_population
+    type: string
+    description: Whether the learner is designing for top leaders, high-potentials, all managers, or critical roles.
+
+  - field: rater_model
+    type: string
+    description: Tracks selected 360 rater groups and ownership assumptions.
+
+  - field: trust_risk_flags
+    type: list
+    description: Notes risks related to confidentiality, fairness, and 360 feedback trust.
+
+  - field: mobility_assumptions
+    type: list
+    description: Tracks assumptions about cross-brand movement and succession readiness.
+
+  - field: learner_behavior
+    type: string
+    description: Tracks whether learner is specific, vague, stuck, or asking AI to do the work.
+
+  - field: last_chro_feedback
+    type: string
+    description: Summary of the last major feedback given by the CHRO.

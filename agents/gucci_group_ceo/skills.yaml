@@ -1,0 +1,64 @@
+skills:
+  - skill_id: strategy_tradeoff_matrix
+    name: Strategy Trade-off Matrix
+    description: Helps compare Group standardization against brand autonomy.
+    when_to_use:
+      - Learner is unsure what should be standardized.
+      - Learner proposes a one-size-fits-all model.
+    input:
+      - proposal
+      - group_needs
+      - brand_autonomy_needs
+    output:
+      - tradeoff_table
+      - executive_recommendation
+
+  - skill_id: group_dna_principle_checker
+    name: Group DNA Principle Checker
+    description: Tests whether proposed Group DNA principles are strategic, distinctive, and actionable.
+    when_to_use:
+      - Learner drafts Group DNA principles.
+      - Learner uses generic leadership language.
+    input:
+      - group_dna_principles
+    output:
+      - strategic_clarity_feedback
+      - missing_non_negotiables
+
+  - skill_id: executive_decision_challenger
+    name: Executive Decision Challenger
+    description: Forces one clear enterprise-level decision and its tradeoffs.
+    when_to_use:
+      - Learner avoids making a decision.
+      - Learner lists ideas without choosing a stance.
+    input:
+      - options
+      - decision_context
+    output:
+      - strongest_option
+      - business_rationale
+      - risks
+
+  - skill_id: operating_model_canvas
+    name: Operating Model Canvas
+    description: Helps define governance, decision rights, ownership, and rollout implications.
+    when_to_use:
+      - Learner discusses implementation or governance.
+    input:
+      - leadership_system_design
+    output:
+      - decision_rights
+      - governance_model
+      - operating_risks
+
+  - skill_id: ceo_pack_reviewer
+    name: CEO Pack Reviewer
+    description: Reviews whether an executive recommendation is strategically clear.
+    when_to_use:
+      - Learner has drafted an executive pack.
+    input:
+      - executive_pack_draft
+    output:
+      - clarity_feedback
+      - tradeoff_gaps
+      - decision_questions
