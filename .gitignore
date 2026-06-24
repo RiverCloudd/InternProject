@@ -1,6 +1,8 @@
 .env
+.venv/
 __pycache__/
 .pytest_cache/
 *.pyc
+uvicorn*.log
 vector_store/*.index
 vector_store/*.json

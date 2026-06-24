@@ -4,57 +4,31 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>AI Co-worker Engine</title>
-    <link rel="stylesheet" href="/static/styles.css" />
+    <link rel="stylesheet" href="/static/styles.css?v=20260624-2" />
   </head>
   <body>
     <main class="shell">
       <section class="workspace">
         <aside class="side-panel">
-          <div>
-            <p class="eyebrow">Job Simulation</p>
-            <h1 id="agentTitle">Gucci Group CHRO</h1>
-            <p id="agentDescription" class="muted">
-              A strategic HR stakeholder helps you pressure-test leadership and talent development decisions.
-            </p>
-          </div>
-
           <div class="status-block">
             <h2>Agent</h2>
-            <select id="agentSelect" aria-label="Select AI co-worker"></select>
+            <select id="agentSelect" aria-label="Select AI co-worker">
+              <option value="gucci_group_boss">Group Boss</option>
+              <option value="gucci_group_ceo">Group CEO</option>
+              <option value="gucci_group_chro" selected>Group CHRO</option>
+              <option value="regional_comms_manager">Regional Comms Manager</option>
+            </select>
           </div>
-
-          <div class="status-block">
-            <h2>Session State</h2>
-            <dl id="stateList">
-              <div><dt>Module</dt><dd>orientation</dd></div>
-              <div><dt>Confidence</dt><dd>unknown</dd></div>
-              <div><dt>Stuck turns</dt><dd>0</dd></div>
-            </dl>
-          </div>
-
-          <div class="status-block">
-            <h2>Deliverables</h2>
-            <ul id="deliverables"></ul>
-          </div>
-
-          <div class="status-block">
-            <h2>Collaboration</h2>
-            <ul id="collaborationList"></ul>
-          </div>
-
-          <div class="status-block">
-            <h2>RAG Sources</h2>
-            <ul id="ragSources"></ul>
-          </div>
-
-          <button id="promptButton" class="prompt-button" type="button">System Prompt</button>
         </aside>
 
         <section class="chat-panel">
           <div class="chat-header">
             <div>
               <p class="eyebrow">AI Co-worker</p>
-              <h2>Strategic guidance chat</h2>
+              <h1 id="agentTitle">Gucci Group CHRO</h1>
+              <p id="agentDescription" class="muted">
+                A strategic HR stakeholder helps you pressure-test leadership and talent development decisions.
+              </p>
             </div>
             <button id="resetButton" type="button" title="Start a new session">Reset</button>
           </div>
@@ -75,14 +49,6 @@
       </section>
     </main>
 
-    <dialog id="promptDialog" class="prompt-dialog">
-      <div class="prompt-dialog-header">
-        <h2>System Prompt</h2>
-        <button id="closePromptButton" type="button" title="Close">Close</button>
-      </div>
-      <pre id="promptText"></pre>
-    </dialog>
-
-    <script src="/static/app.js"></script>
+    <script src="/static/app.js?v=20260624-2"></script>
   </body>
 </html>

@@ -1,0 +1,351 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+2 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier >>
+endobj
+4 0 obj
+<< /Length 6026 >>
+stream
+BT 0.08 0.18 0.29 rg /F2 22 Tf 54 738 Td (Multi-Agent AI Co-worker Engine) Tj ET
+BT 0.18 0.45 0.7 rg /F2 16 Tf 54 710 Td (Source Code Architecture Report) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 688 Td (This report explains the mission, simulation context, source-code design, prototype) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 674.8 Td (architecture, API surface, retrieval layer, memory model, interaction modes, safety controls,) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 661.5999999999999 Td (evaluation approach, and limitations of the submitted local FastAPI prototype.) Tj ET
+0.95 0.97 0.99 rg 54 590.3999999999999 504 54 re f
+BT 0.12 0.2 0.28 rg /F2 9 Tf 66 628.3999999999999 Td (Executive summary: The prototype demonstrates a configurable multi-agent AI co-worker engine) Tj ET
+BT 0.12 0.2 0.28 rg /F1 9 Tf 66 616.3999999999999 Td (with a browser UI, FastAPI API layer, agent personas, RAG-style retrieval, blackboard) Tj ET
+BT 0.12 0.2 0.28 rg /F1 9 Tf 66 604.3999999999999 Td (memory, safety checks, and deterministic mock LLM output for review without paid keys.) Tj ET
+0.18 0.45 0.7 rg 54 574.3999999999999 4 22 re f
+BT 0.12 0.29 0.45 rg /F2 15 Tf 66 579.3999999999999 Td (1. Problem & mission) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 553.3999999999999 Td (The problem is to help a learner complete a Gucci HRM leadership-development simulation) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 540.1999999999998 Td (without replacing the learner's own reasoning. The system must behave like an AI co-worker:) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 526.9999999999998 Td (useful, structured, domain-aware, and bounded.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 506.7999999999997 Td (The mission of the source code is to provide a local multi-agent prototype that can route) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 493.59999999999974 Td (questions, consult specialist personas, retrieve relevant simulation context, maintain state,) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 480.39999999999975 Td (and return explainable metadata for review.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 460.19999999999976 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 460.19999999999976 Td (Support the learner with scaffolding instead of final-answer outsourcing.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 445.19999999999976 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 445.19999999999976 Td (Expose a local API-first prototype suitable for inspection and testing.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 430.19999999999976 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 430.19999999999976 Td (Keep the system runnable without a paid LLM key through MockLLMClient.) Tj ET
+0.18 0.45 0.7 rg 54 405.19999999999976 4 22 re f
+BT 0.12 0.29 0.45 rg /F2 15 Tf 66 410.19999999999976 Td (2. Gucci simulation context) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 384.19999999999976 Td (The case context is a Group-level HRM and leadership-development assignment for Gucci. The) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 370.9999999999998 Td (prototype models workstreams around Group DNA, leadership competencies, 360 feedback,) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 357.7999999999998 Td (coaching, talent mobility, and regional rollout.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 337.5999999999998 Td (Knowledge files in data/ and shared/ provide the assignment context, deliverables, guardrails,) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 324.3999999999998 Td (tool catalog, and shared prompt template. Agent-specific folders add persona-level behavior,) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 311.1999999999998 Td (tasks, skills, memory schema, examples, and handoff rules.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 290.99999999999983 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 290.99999999999983 Td (Core themes: Vision, Entrepreneurship, Passion, and Trust.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 275.99999999999983 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 275.99999999999983 Td (Key tension: Group-wide consistency versus brand or regional adaptation.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 260.99999999999983 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 260.99999999999983 Td (Expected learner outputs: competency model, feedback plan, coaching program, rollout) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 247.99999999999983 Td (plan, and measurement plan.) Tj ET
+0.18 0.45 0.7 rg 54 222.99999999999983 4 22 re f
+BT 0.12 0.29 0.45 rg /F2 15 Tf 66 227.99999999999983 Td (3. Multi-agent AI co-worker design) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 201.99999999999983 Td (The design uses multiple specialized co-workers rather than a single assistant. Each agent has) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 188.79999999999984 Td (a bounded role and can be selected directly from the UI. The boss agent can coordinate the) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 175.59999999999985 Td (team when the user needs synthesis across domains.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 155.39999999999986 Td (The code separates persona configuration from runtime orchestration. This makes the prototype) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 142.19999999999987 Td (easier to extend with new agents or new workflows without rewriting the API layer.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 121.99999999999989 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 121.99999999999989 Td (Config-driven agents live under agents/<agent_id>/.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 106.99999999999989 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 106.99999999999989 Td (Runtime behavior is handled by BaseAgent, MultiAgentOrchestrator, IntentRouter,) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 93.99999999999989 Td (PromptBuilder, and LLM clients.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 78.99999999999989 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 78.99999999999989 Td (The UI deliberately hides system prompts while allowing agent switching.) Tj ET
+BT 0.35 0.38 0.42 rg /F1 8 Tf 54 32 Td (Multi-Agent AI Co-worker Engine - Source Code Report) Tj ET
+BT 0.35 0.38 0.42 rg /F1 8 Tf 548 32 Td (1) Tj ET
+endstream
+endobj
+5 0 obj
+<< /Length 6343 >>
+stream
+0.18 0.45 0.7 rg 54 728 4 22 re f
+BT 0.12 0.29 0.45 rg /F2 15 Tf 66 733 Td (4. Agent personas: CEO, CHRO, Regional Manager) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 707 Td (The CEO persona focuses on enterprise strategy, Group DNA, governance, and tradeoffs between) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 693.8 Td (Group non-negotiables and local autonomy. The CHRO persona focuses on competencies, 360) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 680.5999999999999 Td (feedback, coaching, mobility, succession, and development integrity.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 660.3999999999999 Td (The Regional Manager persona focuses on rollout, localization, communication channels, trainer) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 647.1999999999998 Td (readiness, employee voice, and adoption metrics. Together, these personas cover strategy,) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 633.9999999999998 Td (people-system design, and implementation.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 613.7999999999997 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 613.7999999999997 Td (CEO: pressure-tests strategic clarity and executive tradeoffs.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 598.7999999999997 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 598.7999999999997 Td (CHRO: makes HR design observable, fair, developmental, and measurable.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 583.7999999999997 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 583.7999999999997 Td (Regional Manager: turns plans into localized adoption and communication workflows.) Tj ET
+0.18 0.45 0.7 rg 54 558.7999999999997 4 22 re f
+BT 0.12 0.29 0.45 rg /F2 15 Tf 66 563.7999999999997 Td (5. Multi-agent architecture) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 537.7999999999997 Td (The central runtime object is MultiAgentOrchestrator. It constructs loader, retriever, prompt) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 524.5999999999997 Td (builder, LLM client, intent router, message bus, blackboard, memory manager, supervisor,) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 511.3999999999997 Td (synthesizer, safety checker, and tool router.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 491.1999999999997 Td (The architecture supports direct response, consultation, panel responses, debate synthesis,) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 477.9999999999997 Td (and handoff behavior. Supporting agents communicate through the MessageBus, while final user-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 464.7999999999997 Td (facing responses are produced by the active primary agent or the synthesizer.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 444.59999999999974 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 444.59999999999974 Td (AgentLoader loads YAML and Markdown persona modules.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 429.59999999999974 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 429.59999999999974 Td (IntentRouter decides primary and supporting agents.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 414.59999999999974 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 414.59999999999974 Td (Synthesizer merges panel or debate outputs.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 399.59999999999974 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 399.59999999999974 Td (MessageBus records private inter-agent consultation messages.) Tj ET
+0.18 0.45 0.7 rg 54 374.59999999999974 4 22 re f
+BT 0.12 0.29 0.45 rg /F2 15 Tf 66 379.59999999999974 Td (6. API layer) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 353.59999999999974 Td (The FastAPI layer is intentionally small. app.py creates the FastAPI app, mounts the static) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 340.39999999999975 Td (UI, creates the default orchestrator, and includes routes from src/api/routes.py.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 320.19999999999976 Td (The API supports /health, /agents, /api/agents, /chat, /chat/{agent_id}, and /api/chat) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 306.9999999999998 Td (compatibility routes. Pydantic schemas in src/api/schemas.py define request and response) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 293.7999999999998 Td (shapes.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 273.5999999999998 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 273.5999999999998 Td (GET /health returns service status.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 258.5999999999998 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 258.5999999999998 Td (GET /api/agents returns the default agent and available agents.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 243.5999999999998 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 243.5999999999998 Td (POST /chat supports advanced mode selection.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 228.5999999999998 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 228.5999999999998 Td (POST /chat/{agent_id} supports the browser UI's selected-agent workflow.) Tj ET
+0.18 0.45 0.7 rg 54 203.5999999999998 4 22 re f
+BT 0.12 0.29 0.45 rg /F2 15 Tf 66 208.5999999999998 Td (7. RAG + Vector DB design) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 182.5999999999998 Td (The retrieval layer builds chunks from data/, shared/, and agents/ files. MockEmbeddingClient) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 169.3999999999998 Td (creates deterministic local embeddings, while MockVectorDB provides an in-memory vector-store) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 156.19999999999982 Td (interface with cosine similarity.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 135.99999999999983 Td (The design intentionally mimics production RAG shape without requiring FAISS or hosted) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 122.79999999999983 Td (embeddings. It also filters retrieved context by agent scope where possible and falls back to) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 109.59999999999982 Td (broader retrieval when needed.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 89.39999999999982 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 89.39999999999982 Td (RAGIndexBuilder chunks Markdown and YAML knowledge files.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 74.39999999999982 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 74.39999999999982 Td (Retriever.retrieve returns scored raw chunks for internal prompt construction.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 59.39999999999982 Td (-) Tj ET
+BT 0.35 0.38 0.42 rg /F1 8 Tf 54 32 Td (Multi-Agent AI Co-worker Engine - Source Code Report) Tj ET
+BT 0.35 0.38 0.42 rg /F1 8 Tf 548 32 Td (2) Tj ET
+endstream
+endobj
+6 0 obj
+<< /Length 6116 >>
+stream
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 738 Td (Public API responses expose metadata only, not full retrieved prompt text.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 723 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 723 Td (system_prompt.md files are excluded from the public retrieval index.) Tj ET
+0.18 0.45 0.7 rg 54 698 4 22 re f
+BT 0.12 0.29 0.45 rg /F2 15 Tf 66 703 Td (8. Memory + shared blackboard) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 677 Td (The prototype uses two memory concepts. MemoryStore keeps per-session conversational state for) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 663.8 Td (the agent runtime, while Blackboard stores shared project state such as current module, active) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 650.5999999999999 Td (deliverable, missing outputs, decisions, risks, and retrieval history.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 630.3999999999999 Td (The blackboard lets future turns inherit context from previous turns without exposing hidden) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 617.1999999999998 Td (prompt logic. It also helps the orchestrator track deliverable progress and debugging) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 603.9999999999998 Td (metadata.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 583.7999999999997 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 583.7999999999997 Td (Blackboard.load initializes session state.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 568.7999999999997 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 568.7999999999997 Td (Blackboard.update_from_turn records module, intent, last response summary, and retrieval) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 555.7999999999997 Td (history.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 540.7999999999997 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 540.7999999999997 Td (MemoryStore tracks session-level confidence, completed deliverables, and conversation) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 527.7999999999997 Td (history.) Tj ET
+0.18 0.45 0.7 rg 54 502.7999999999997 4 22 re f
+BT 0.12 0.29 0.45 rg /F2 15 Tf 66 507.7999999999997 Td (9. Interaction modes: direct, consult, debate, panel, handoff) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 481.7999999999997 Td (Interaction modes are selected explicitly or inferred in auto mode. Direct mode uses one) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 468.59999999999974 Td (active agent. Consult mode asks supporting agents for private input before the primary agent) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 455.39999999999975 Td (responds. Panel mode collects multiple panelist responses and synthesizes them.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 435.19999999999976 Td (Debate mode creates a proposal, asks supporting agents to challenge it, and synthesizes a) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 421.9999999999998 Td (response. Handoff mode changes the primary agent to a supporting specialist when the request) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 408.7999999999998 Td (belongs elsewhere.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 388.5999999999998 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 388.5999999999998 Td (direct: one agent answers.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 373.5999999999998 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 373.5999999999998 Td (consult: active agent consults selected specialists.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 358.5999999999998 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 358.5999999999998 Td (panel: multiple agents provide perspectives.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 343.5999999999998 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 343.5999999999998 Td (debate: proposal plus critique workflow.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 328.5999999999998 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 328.5999999999998 Td (handoff: transfer to the more relevant agent.) Tj ET
+0.18 0.45 0.7 rg 54 303.5999999999998 4 22 re f
+BT 0.12 0.29 0.45 rg /F2 15 Tf 66 308.5999999999998 Td (10. Supervisor / Director agent) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 282.5999999999998 Td (The current code uses Supervisor plus IntentRouter as the director-like control layer.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 269.3999999999998 Td (Supervisor detects module, vagueness, safety status, stuck signals, and completed) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 256.1999999999998 Td (deliverables. IntentRouter detects intent and selects primary/supporting agents.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 235.99999999999983 Td (The boss agent is also available as a user-selectable coordinator persona. It consults CEO,) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 222.79999999999984 Td (CHRO, and Regional Manager when broad synthesis is needed.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 202.59999999999985 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 202.59999999999985 Td (Supervisor.analyze returns status, module, redirect flags, and recommended action.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 187.59999999999985 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 187.59999999999985 Td (IntentRouter maps intent to primary and supporting agents.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 172.59999999999985 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 172.59999999999985 Td (Boss agent provides a human-facing coordination persona.) Tj ET
+0.18 0.45 0.7 rg 54 147.59999999999985 4 22 re f
+BT 0.12 0.29 0.45 rg /F2 15 Tf 66 152.59999999999985 Td (11. Safety guardrails) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 126.59999999999985 Td (SafetyChecker identifies prompt extraction, instruction override attempts, confidential data) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 113.39999999999985 Td (requests, final-answer outsourcing, off-track prompts, and harmful HR requests. The) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 100.19999999999985 Td (orchestrator blocks prompt-extraction attempts before prompt construction proceeds.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 79.99999999999984 Td (The UI no longer exposes a system-prompt preview. Public chat responses return retrieved-) Tj ET
+BT 0.35 0.38 0.42 rg /F1 8 Tf 54 32 Td (Multi-Agent AI Co-worker Engine - Source Code Report) Tj ET
+BT 0.35 0.38 0.42 rg /F1 8 Tf 548 32 Td (3) Tj ET
+endstream
+endobj
+7 0 obj
+<< /Length 6031 >>
+stream
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 738 Td (context metadata only, reducing the chance of leaking internal configuration or prompt) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 724.8 Td (content.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 704.5999999999999 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 704.5999999999999 Td (Prompt extraction returns a blocked response.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 689.5999999999999 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 689.5999999999999 Td (Agent rules prohibit revealing hidden instructions.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 674.5999999999999 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 674.5999999999999 Td (The reportable API metadata avoids raw prompt or raw retrieved text exposure.) Tj ET
+0.18 0.45 0.7 rg 54 649.5999999999999 4 22 re f
+BT 0.12 0.29 0.45 rg /F2 15 Tf 66 654.5999999999999 Td (12. Prototype implementation) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 628.5999999999999 Td (The implementation is intentionally lightweight and local. It uses FastAPI for the API layer,) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 615.3999999999999 Td (static HTML/CSS/JavaScript for the UI, YAML/Markdown for agent configuration, and Python) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 602.1999999999998 Td (classes for routing, memory, safety, retrieval, and orchestration.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 581.9999999999998 Td (MockLLMClient provides deterministic English responses for reliable grading. GeminiLLMClient) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 568.7999999999997 Td (is optional and loaded only when .env requests Gemini and a real key is present.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 548.5999999999997 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 548.5999999999997 Td (Entry point: app.py.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 533.5999999999997 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 533.5999999999997 Td (UI: static/index.html, static/app.js, static/styles.css.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 518.5999999999997 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 518.5999999999997 Td (Tests: tests/test_agent.py.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 503.5999999999997 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 503.5999999999997 Td (Run guide: RUNNING.md.) Tj ET
+0.18 0.45 0.7 rg 54 478.5999999999997 4 22 re f
+BT 0.12 0.29 0.45 rg /F2 15 Tf 66 483.5999999999997 Td (13. Demo / sample API response) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 457.5999999999997 Td (A typical browser request posts to /chat/{agent_id}. For example, posting an education) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 444.3999999999997 Td (communication request to regional_comms_manager returns a structured campaign-planning) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 431.1999999999997 Td (response and metadata about state, route, safety flags, and collaborators.) Tj ET
+0.96 0.96 0.96 rg 54 237.99999999999972 504 181 re f
+BT 0.12 0.12 0.12 rg /F3 8 Tf 66 402.9999999999997 Td (POST /chat/regional_comms_manager) Tj ET
+BT 0.12 0.12 0.12 rg /F3 8 Tf 66 391.9999999999997 Td ({) Tj ET
+BT 0.12 0.12 0.12 rg /F3 8 Tf 66 380.9999999999997 Td (  "session_id": "demo-session",) Tj ET
+BT 0.12 0.12 0.12 rg /F3 8 Tf 66 369.9999999999997 Td (  "message": "I need to build an education communication project.") Tj ET
+BT 0.12 0.12 0.12 rg /F3 8 Tf 66 358.9999999999997 Td (}) Tj ET
+BT 0.12 0.12 0.12 rg /F3 8 Tf 66 347.9999999999997 Td () Tj ET
+BT 0.12 0.12 0.12 rg /F3 8 Tf 66 336.9999999999997 Td (Sample response excerpt:) Tj ET
+BT 0.12 0.12 0.12 rg /F3 8 Tf 66 325.9999999999997 Td ({) Tj ET
+BT 0.12 0.12 0.12 rg /F3 8 Tf 66 314.9999999999997 Td (  "agent_id": "regional_comms_manager",) Tj ET
+BT 0.12 0.12 0.12 rg /F3 8 Tf 66 303.9999999999997 Td (  "assistant_message": "For an education communication project, build the campaign) Tj ET
+BT 0.12 0.12 0.12 rg /F3 8 Tf 66 292.9999999999997 Td (around an audience journey...",) Tj ET
+BT 0.12 0.12 0.12 rg /F3 8 Tf 66 281.9999999999997 Td (  "collaboration": {"collaborators": ["gucci_group_chro"]},) Tj ET
+BT 0.12 0.12 0.12 rg /F3 8 Tf 66 270.9999999999997 Td (  "safety_flags": {},) Tj ET
+BT 0.12 0.12 0.12 rg /F3 8 Tf 66 259.9999999999997 Td (  "context": [{"document_id": "module_3_rollout_adoption", "score": 0.74}]) Tj ET
+BT 0.12 0.12 0.12 rg /F3 8 Tf 66 248.99999999999972 Td (}) Tj ET
+0.18 0.45 0.7 rg 54 218.99999999999972 4 22 re f
+BT 0.12 0.29 0.45 rg /F2 15 Tf 66 223.99999999999972 Td (14. Evaluation metrics) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 197.99999999999972 Td (Evaluation should cover both engineering quality and assistant behavior. The prototype) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 184.79999999999973 Td (includes tests for agent list behavior, boss consultation, consult mode, debate mode, prompt-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 171.59999999999974 Td (extraction blocking, hidden prompt endpoint removal, metadata-only retrieved context, mock) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 158.39999999999975 Td (fallback, and retriever metadata.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 138.19999999999976 Td (Product-level evaluation should measure whether the assistant is helpful, scoped, context-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 124.99999999999976 Td (aware, safe, and faithful to the simulation.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 104.79999999999976 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 104.79999999999976 Td (Functional: endpoint success, routing accuracy, mode selection, session continuity.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 89.79999999999976 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 89.79999999999976 Td (Retrieval: relevant context, agent-scope filtering, no hidden prompt leakage.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 74.79999999999976 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 74.79999999999976 Td (Safety: prompt-extraction refusal, assignment-scaffolding behavior, no confidential data) Tj ET
+BT 0.35 0.38 0.42 rg /F1 8 Tf 54 32 Td (Multi-Agent AI Co-worker Engine - Source Code Report) Tj ET
+BT 0.35 0.38 0.42 rg /F1 8 Tf 548 32 Td (4) Tj ET
+endstream
+endobj
+8 0 obj
+<< /Length 3756 >>
+stream
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 738 Td (fabrication.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 723 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 723 Td (UX: agent switching clarity, response depth, English consistency, browser reliability.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 708 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 708 Td (Learning value: asks useful questions, scaffolds deliverables, avoids writing the final) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 695 Td (assignment end-to-end.) Tj ET
+0.18 0.45 0.7 rg 54 670 4 22 re f
+BT 0.12 0.29 0.45 rg /F2 15 Tf 66 675 Td (15. Limitations & next steps) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 649 Td (The prototype is intentionally local and simplified. Mock embeddings and MockVectorDB) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 635.8 Td (approximate the production architecture but do not provide semantic retrieval quality) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 622.5999999999999 Td (equivalent to hosted embeddings or FAISS. MockLLMClient is deterministic and useful for) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 609.3999999999999 Td (grading, but it is not a substitute for a high-quality model in real use.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 589.1999999999998 Td (Next steps should focus on replacing mock components, expanding tests, adding richer) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 575.9999999999998 Td (observability, and improving evaluation with realistic user transcripts.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 555.7999999999997 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 555.7999999999997 Td (Replace mock embeddings with a production embedding model.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 540.7999999999997 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 540.7999999999997 Td (Add persistent vector DB storage and indexing scripts.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 525.7999999999997 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 525.7999999999997 Td (Add authentication and request logging for hosted use.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 510.7999999999997 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 510.7999999999997 Td (Add structured evaluation datasets and rubric-based scoring.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 495.7999999999997 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 495.7999999999997 Td (Improve frontend state handling and add loading/error states.) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 480.7999999999997 Td (-) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 68 480.7999999999997 Td (Add model-cost controls, retry behavior, and streaming responses.) Tj ET
+0.18 0.45 0.7 rg 54 455.7999999999997 4 22 re f
+BT 0.12 0.29 0.45 rg /F2 15 Tf 66 460.7999999999997 Td (Closing assessment) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 434.7999999999997 Td (The source code presents a coherent local prototype for a multi-agent AI co-worker engine. Its) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 421.59999999999974 Td (strongest qualities are the separation between configuration and runtime, the API-first) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 408.39999999999975 Td (structure, the multi-mode orchestration design, the explicit safety layer, and the ability to) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 395.19999999999976 Td (run without paid credentials. The main engineering limitations are mock retrieval quality,) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 381.9999999999998 Td (non-persistent vector storage, deterministic mock responses, and the absence of production) Tj ET
+BT 0.09 0.1 0.12 rg /F1 10 Tf 54 368.7999999999998 Td (deployment concerns such as authentication, monitoring, and hosted storage.) Tj ET
+BT 0.35 0.38 0.42 rg /F1 8 Tf 54 32 Td (Multi-Agent AI Co-worker Engine - Source Code Report) Tj ET
+BT 0.35 0.38 0.42 rg /F1 8 Tf 548 32 Td (5) Tj ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 14 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R >> >> /Contents 4 0 R >>
+endobj
+10 0 obj
+<< /Type /Page /Parent 14 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R >> >> /Contents 5 0 R >>
+endobj
+11 0 obj
+<< /Type /Page /Parent 14 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R >> >> /Contents 6 0 R >>
+endobj
+12 0 obj
+<< /Type /Page /Parent 14 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R >> >> /Contents 7 0 R >>
+endobj
+13 0 obj
+<< /Type /Page /Parent 14 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R /F2 2 0 R /F3 3 0 R >> >> /Contents 8 0 R >>
+endobj
+14 0 obj
+<< /Type /Pages /Kids [9 0 R 10 0 R 11 0 R 12 0 R 13 0 R] /Count 5 >>
+endobj
+15 0 obj
+<< /Type /Catalog /Pages 14 0 R >>
+endobj
+16 0 obj
+<< /Title (Multi-Agent AI Co-worker Engine - Source Code Report) /Producer (Codex SimplePdf) >>
+endobj
+xref
+0 17
+0000000000 65535 f 
+0000000015 00000 n 
+0000000085 00000 n 
+0000000160 00000 n 
+0000000228 00000 n 
+0000006306 00000 n 
+0000012701 00000 n 
+0000018869 00000 n 
+0000024952 00000 n 
+0000028760 00000 n 
+0000028907 00000 n 
+0000029055 00000 n 
+0000029203 00000 n 
+0000029351 00000 n 
+0000029499 00000 n 
+0000029585 00000 n 
+0000029636 00000 n 
+trailer << /Size 17 /Root 15 0 R /Info 16 0 R >>
+startxref
+29748
+%%EOF

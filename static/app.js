@@ -2,23 +2,18 @@ const messagesEl = document.querySelector("#messages");
 const formEl = document.querySelector("#chatForm");
 const inputEl = document.querySelector("#messageInput");
 const resetButton = document.querySelector("#resetButton");
-const promptButton = document.querySelector("#promptButton");
-const closePromptButton = document.querySelector("#closePromptButton");
-const promptDialog = document.querySelector("#promptDialog");
-const promptText = document.querySelector("#promptText");
-const stateList = document.querySelector("#stateList");
-const deliverablesEl = document.querySelector("#deliverables");
-const collaborationList = document.querySelector("#collaborationList");
-const ragSources = document.querySelector("#ragSources");
 const agentSelect = document.querySelector("#agentSelect");
 const agentTitle = document.querySelector("#agentTitle");
 const agentDescription = document.querySelector("#agentDescription");
 
 let agents = [];
 let selectedAgentId = window.localStorage.getItem("selectedAgentId") || "gucci_group_chro";
-let sessionIds = JSON.parse(window.localStorage.getItem("coworkerSessionIds") || "{}");
+let sessionIds = loadSessionIds();
+window.localStorage.removeItem("bossMode");
 
 const descriptions = {
+  gucci_group_boss:
+    "The team lead coordinates CEO, CHRO, and Regional Comms perspectives into one integrated next move.",
   gucci_group_ceo:
     "The CEO pressure-tests strategy, Group DNA, culture, and the balance between brand autonomy and Group needs.",
   gucci_group_chro:
@@ -26,6 +21,28 @@ const descriptions = {
   regional_comms_manager:
     "The Regional Manager translates the design into local rollout, communication, training, and adoption plans.",
 };
+
+function defaultAgentId() {
+  return agents.some((agent) => agent.agent_id === "gucci_group_chro")
+    ? "gucci_group_chro"
+    : agents[0]?.agent_id || "gucci_group_chro";
+}
+
+function normalizeSelectedAgentId(preferredId) {
+  return agents.some((agent) => agent.agent_id === preferredId)
+    ? preferredId
+    : defaultAgentId();
+}
+
+function loadSessionIds() {
+  try {
+    const parsed = JSON.parse(window.localStorage.getItem("coworkerSessionIds") || "{}");
+    return parsed && typeof parsed === "object" ? parsed : {};
+  } catch (error) {
+    window.localStorage.removeItem("coworkerSessionIds");
+    return {};
+  }
+}
 
 function currentSessionId() {
   return sessionIds[selectedAgentId] || null;
@@ -51,71 +68,36 @@ function addMessage(role, text) {
 }
 
 function updateState(state) {
-  stateList.innerHTML = `
-    <div><dt>Module</dt><dd>${state.current_module}</dd></div>
-    <div><dt>Confidence</dt><dd>${state.user_confidence}</dd></div>
-    <div><dt>Stuck turns</dt><dd>${state.stuck_counter}</dd></div>
-  `;
-
-  deliverablesEl.innerHTML = "";
-  for (const item of state.missing_deliverables || []) {
-    const li = document.createElement("li");
-    li.textContent = item.replaceAll("_", " ");
-    deliverablesEl.appendChild(li);
-  }
+  window.localStorage.setItem("coworkerLastState", JSON.stringify(state));
 }
 
 function resetStatePanel() {
-  updateState({
-    current_module: "orientation",
-    user_confidence: "unknown",
-    stuck_counter: 0,
-    missing_deliverables: [
-      "group_dna",
-      "competency_model",
-      "360_feedback_plan",
-      "coaching_program",
-      "talent_mobility_plan",
-      "regional_rollout_plan",
-      "measurement_plan",
-    ],
-  });
-  updateEngineTrace({ collaboration: { notes: [] }, rag_context: [] });
+  window.localStorage.removeItem("coworkerLastState");
+  window.localStorage.removeItem("coworkerLastTrace");
 }
 
 function updateEngineTrace(data) {
-  collaborationList.innerHTML = "";
-  const notes = data.collaboration?.notes || [];
-  if (!notes.length) {
-    const li = document.createElement("li");
-    li.textContent = "No collaborator";
-    collaborationList.appendChild(li);
-  } else {
-    for (const note of notes) {
-      const li = document.createElement("li");
-      li.textContent = note.role || note.agent_name || note.agent_id;
-      collaborationList.appendChild(li);
-    }
-  }
-
-  ragSources.innerHTML = "";
-  const chunks = data.rag_context || data.context || [];
-  for (const chunk of chunks.slice(0, 4)) {
-    const li = document.createElement("li");
-    li.textContent = chunk.source || "unknown source";
-    ragSources.appendChild(li);
-  }
-  if (!chunks.length) {
-    const li = document.createElement("li");
-    li.textContent = "No retrieved context";
-    ragSources.appendChild(li);
-  }
+  window.localStorage.setItem("coworkerLastTrace", JSON.stringify(data));
 }
 
 function renderAgentHeader() {
+  selectedAgentId = normalizeSelectedAgentId(selectedAgentId);
   const agent = agents.find((item) => item.agent_id === selectedAgentId);
-  agentTitle.textContent = agent ? agent.name : "AI Co-worker";
+  agentTitle.textContent = agent ? agent.name : "Gucci Group CHRO";
   agentDescription.textContent = descriptions[selectedAgentId] || "Select an AI co-worker for this simulation.";
+  agentSelect.value = selectedAgentId;
+}
+
+function populateAgentSelect(agentList) {
+  agentSelect.innerHTML = "";
+  for (const agent of agentList) {
+    const option = document.createElement("option");
+    option.value = agent.agent_id;
+    option.textContent = agent.name;
+    agentSelect.appendChild(option);
+  }
+  selectedAgentId = normalizeSelectedAgentId(selectedAgentId);
+  agentSelect.value = selectedAgentId;
 }
 
 function resetConversation() {
@@ -157,18 +139,10 @@ async function loadAgents() {
   const response = await fetch("/api/agents");
   const data = await response.json();
   agents = data.agents || [];
-  selectedAgentId = agents.some((agent) => agent.agent_id === selectedAgentId)
-    ? selectedAgentId
-    : data.default_agent_id;
+  selectedAgentId = normalizeSelectedAgentId(selectedAgentId || data.default_agent_id);
+  window.localStorage.setItem("selectedAgentId", selectedAgentId);
 
-  agentSelect.innerHTML = "";
-  for (const agent of agents) {
-    const option = document.createElement("option");
-    option.value = agent.agent_id;
-    option.textContent = agent.name;
-    agentSelect.appendChild(option);
-  }
-  agentSelect.value = selectedAgentId;
+  populateAgentSelect(agents);
   renderAgentHeader();
   resetConversation();
 }
@@ -194,24 +168,21 @@ resetButton.addEventListener("click", () => {
   resetConversation();
 });
 
-promptButton.addEventListener("click", async () => {
-  promptText.textContent = "Loading...";
-  promptDialog.showModal();
-  try {
-    const response = await fetch(`/api/system-prompt/${selectedAgentId}`);
-    const data = await response.json();
-    promptText.textContent = data.system_prompt;
-  } catch (error) {
-    promptText.textContent = "Could not load the system prompt preview.";
-  }
-});
-
-closePromptButton.addEventListener("click", () => {
-  promptDialog.close();
-});
-
 loadAgents().catch(() => {
-  agents = [{ agent_id: selectedAgentId, name: "Gucci Group CHRO", role: "Gucci Group CHRO" }];
+  agents = [
+    { agent_id: "gucci_group_boss", name: "Group Boss", role: "Multi-agent Team Lead" },
+    { agent_id: "gucci_group_ceo", name: "Group CEO", role: "Gucci Group CEO" },
+    { agent_id: "gucci_group_chro", name: "Group CHRO", role: "Gucci Group CHRO" },
+    {
+      agent_id: "regional_comms_manager",
+      name: "Regional Comms Manager",
+      role: "Employer Branding & Internal Communications Regional Manager",
+    },
+  ];
+  selectedAgentId = agents.some((agent) => agent.agent_id === selectedAgentId)
+    ? selectedAgentId
+    : "gucci_group_chro";
+  populateAgentSelect(agents);
   renderAgentHeader();
   resetConversation();
 });

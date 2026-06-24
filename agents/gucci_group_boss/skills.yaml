@@ -1,0 +1,42 @@
+skills:
+  - skill_id: agent_work_order_router
+    name: Agent Work Order Router
+    description: Turns a broad learner request into owner-tagged work orders for the specialist agents.
+    when_to_use:
+      - Learner asks the whole team to solve or review something.
+      - Learner is unsure which agent should handle a task.
+    input:
+      - user_request
+      - current_deliverable
+    output:
+      - ceo_work_order
+      - chro_work_order
+      - regional_comms_work_order
+      - synthesis_goal
+
+  - skill_id: integrated_plan_synthesizer
+    name: Integrated Plan Synthesizer
+    description: Combines strategy, HR design, and rollout advice into a coherent next step.
+    when_to_use:
+      - Learner needs a single recommendation after specialist input.
+      - Specialist views create tradeoffs or sequencing questions.
+    input:
+      - specialist_inputs
+      - learner_goal
+    output:
+      - synthesized_recommendation
+      - tradeoffs
+      - next_action
+
+  - skill_id: boss_command_builder
+    name: Boss Command Builder
+    description: Helps the learner issue clearer commands to the agent team.
+    when_to_use:
+      - Learner gives a vague instruction.
+      - Learner wants the team to execute multiple workstreams.
+    input:
+      - rough_instruction
+    output:
+      - clarified_command
+      - owner_assignments
+      - expected_outputs

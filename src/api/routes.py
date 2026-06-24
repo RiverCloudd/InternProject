@@ -52,8 +52,8 @@ def create_router(orchestrator: MultiAgentOrchestrator) -> APIRouter:
                 "stuck_counter": 0,
                 "relationship_tone": "supportive_but_direct",
             },
-            "context": result["retrieved_context_full"],
-            "rag_context": result["retrieved_context_full"],
+            "context": result["retrieved_context"],
+            "rag_context": result["retrieved_context"],
             "safety_flags": {flag: True for flag in result["safety_flags"]},
             "supervisor_signal": result["supervisor_signal"],
             "tool_suggestions": [],
@@ -75,17 +75,5 @@ def create_router(orchestrator: MultiAgentOrchestrator) -> APIRouter:
     @router.post("/api/chat")
     def chat_default_compat(request: LegacyChatRequest) -> dict[str, object]:
         return chat_agent_compat("gucci_group_chro", request)
-
-    @router.get("/api/system-prompt/{agent_id}")
-    def system_prompt(agent_id: str) -> dict[str, str]:
-        agent = orchestrator.loader.load(agent_id)
-        prompt = orchestrator.prompt_builder.build(
-            agent=agent,
-            retrieved_context=orchestrator.retriever.search("competency 360 rollout", agent_id=agent_id),
-            memory_summary={},
-            supervisor_signal={"status": "preview", "user_message": "Preview prompt"},
-            tool_catalog=orchestrator.tool_router.tools_for_agent(agent_id),
-        )
-        return {"persona_id": agent_id, "system_prompt": prompt}
 
     return router

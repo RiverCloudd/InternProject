@@ -1,48 +1,29 @@
 # Multi-Agent AI Co-worker Engine
 
-Local Python prototype for the Gucci HRM AI co-worker simulation. The implementation follows `workflow.md`: API-first, config-loaded agents, RAG retrieval, vector DB abstraction, LLM client abstraction, multi-agent orchestration, blackboard memory, and debug metadata.
+Local FastAPI prototype for a Gucci HRM AI co-worker simulation. The app exposes a browser chat UI and API endpoints for a small multi-agent system with configurable agent profiles, RAG-style retrieval, blackboard memory, safety checks, and mock/Gemini LLM clients.
 
-## Agents
+For step-by-step setup, see [RUNNING.md](RUNNING.md).
 
-- `gucci_group_ceo`
-- `gucci_group_chro`
-- `regional_comms_manager`
+## What Is Included
 
-Each agent lives in `agents/<agent_id>/` and includes:
+- Browser chat UI at `/`
+- FastAPI endpoints for health, agents, and chat
+- Four selectable agents:
+  - `gucci_group_boss`
+  - `gucci_group_ceo`
+  - `gucci_group_chro`
+  - `regional_comms_manager`
+- Boss agent that coordinates the specialist agents
+- Mock LLM mode for local review without paid keys
+- Optional Gemini mode through `.env`
+- Tests for routing, safety, API behavior, and mock output
 
-- `profile.yaml`
-- `system_prompt.md`
-- `skills.yaml`
-- `tasks.yaml`
-- `memory_schema.yaml`
-- `handoff_rules.yaml`
-- `examples.md`
-
-## Gemini API Key
-
-The app runs with `MockLLMClient` by default, so no paid API key is required.
-
-To use Gemini:
+## Quick Start
 
 ```powershell
-Copy-Item .env.example .env
-```
-
-Open `.env` and set:
-
-```text
-LLM_PROVIDER=gemini
-GEMINI_API_KEY=YOUR_REAL_GEMINI_API_KEY
-GEMINI_MODEL=gemini-3.5-flash
-```
-
-Do not commit `.env`. The code reads the key through `src/config.py` and calls Gemini only through `src/llm_client.py`.
-
-## Run
-
-```bash
-pip install -r requirements.txt
-uvicorn app:app --reload --port 8001
+cd ai-coworker-engine
+python -m pip install -r requirements.txt
+python -m uvicorn app:app --reload --host 127.0.0.1 --port 8001
 ```
 
 Open:
@@ -51,75 +32,34 @@ Open:
 http://127.0.0.1:8001
 ```
 
-## Required API
+Run tests:
 
-### Health
-
-```http
-GET /health
+```powershell
+python -m pytest -q
 ```
 
-### Agents
-
-```http
-GET /agents
-```
-
-### Chat
-
-```http
-POST /chat
-Content-Type: application/json
-
-{
-  "session_id": "s001",
-  "target_agent_id": "gucci_group_chro",
-  "mode": "auto",
-  "message": "Can you review my competency framework?"
-}
-```
-
-Modes:
-
-- `auto`
-- `direct`
-- `consult`
-- `panel`
-- `debate`
-- `handoff`
-
-Response includes:
-
-- `response`
-- `active_agent`
-- `supporting_agents`
-- `interaction_mode`
-- `intent`
-- `retrieved_context`
-- `supervisor_signal`
-- `safety_flags`
-- `llm_provider`
-- `blackboard`
-- `message_bus`
-
-## Source Structure
+## Project Structure
 
 ```text
 ai-coworker-engine/
-|-- app.py
-|-- workflow.md
+|-- app.py                  # FastAPI app entrypoint
+|-- README.md               # Project overview
+|-- RUNNING.md              # Local setup and run guide
 |-- requirements.txt
 |-- .env.example
 |
-|-- agents/
-|-- shared/
-|-- data/
-|-- vector_store/
+|-- agents/                 # Agent configs and prompts
+|   |-- gucci_group_boss/
+|   |-- gucci_group_ceo/
+|   |-- gucci_group_chro/
+|   `-- regional_comms_manager/
+|
+|-- data/                   # RAG knowledge files
+|-- examples/               # Example conversations
+|-- shared/                 # Shared prompt, rules, and tools
 |
 |-- src/
-|   |-- api/
-|   |   |-- schemas.py
-|   |   `-- routes.py
+|   |-- api/                # FastAPI route/schema modules
 |   |-- agent.py
 |   |-- agent_loader.py
 |   |-- blackboard.py
@@ -137,20 +77,63 @@ ai-coworker-engine/
 |   |-- synthesizer.py
 |   |-- tool_router.py
 |   `-- vector_db.py
+|
+|-- static/                 # Browser UI
+|-- tests/
+`-- workflow.md             # Original assignment/workflow reference
 ```
 
-## RAG
+## API Summary
 
-`src/retriever.py` uses:
+Health:
 
-- `src/embedding_client.py`
-- `src/vector_db.py`
-- local files from `data/`, `shared/`, and `agents/`
-
-The prototype uses mock embeddings and a local vector DB interface. This keeps the same production-compatible shape without requiring FAISS setup.
-
-## Tests
-
-```bash
-python -m pytest -q
+```http
+GET /health
 ```
+
+Agents:
+
+```http
+GET /api/agents
+```
+
+Chat with selected agent:
+
+```http
+POST /chat/{agent_id}
+Content-Type: application/json
+
+{
+  "session_id": "demo-session",
+  "message": "I need to build an education communication project."
+}
+```
+
+Advanced chat:
+
+```http
+POST /chat
+Content-Type: application/json
+
+{
+  "session_id": "demo-session",
+  "target_agent_id": "gucci_group_boss",
+  "mode": "auto",
+  "message": "Ask the team to pressure-test my plan."
+}
+```
+
+Supported modes:
+
+- `auto`
+- `direct`
+- `consult`
+- `panel`
+- `debate`
+- `handoff`
+
+## Notes
+
+- The app defaults to mock mode, so it works offline and does not require paid API keys.
+- Hidden system prompts are not exposed through the UI or API preview route.
+- Runtime files such as `.env`, logs, caches, and generated vector-store files are ignored by git.

@@ -165,7 +165,7 @@ class MultiAgentOrchestrator:
             "interaction_mode": interaction_mode,
             "intent": route.get("intent"),
             "retrieved_context": self._context_metadata(retrieved_context),
-            "retrieved_context_full": retrieved_context,
+            "retrieved_context_full": self._context_metadata(retrieved_context),
             "supervisor_signal": supervisor_signal,
             "safety_flags": flag_list,
             "llm_provider": self.llm_client.provider_name,

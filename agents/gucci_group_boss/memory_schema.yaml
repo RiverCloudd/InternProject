@@ -1,0 +1,11 @@
+memory_schema:
+  fields:
+    - current_workstream
+    - active_specialists
+    - open_tradeoffs
+    - next_owner_tagged_tasks
+    - learner_priority
+  update_rules:
+    - Track which specialist should own each requested task.
+    - Preserve unresolved tradeoffs across turns.
+    - Keep the next action concise and actionable.

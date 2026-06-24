@@ -1,41 +1,49 @@
 tools:
   - tool_id: competency_matrix_builder
     allowed_agents:
+      - gucci_group_boss
       - gucci_group_chro
     description: Helps structure competency themes and behavior levels.
 
   - tool_id: behavior_indicator_generator
     allowed_agents:
+      - gucci_group_boss
       - gucci_group_chro
     description: Converts abstract leadership language into observable behaviors.
 
   - tool_id: feedback_item_generator
     allowed_agents:
+      - gucci_group_boss
       - gucci_group_chro
     description: Drafts development-oriented 360 feedback items.
 
   - tool_id: strategy_tradeoff_matrix
     allowed_agents:
+      - gucci_group_boss
       - gucci_group_ceo
     description: Helps compare Group consistency and brand autonomy.
 
   - tool_id: operating_model_canvas
     allowed_agents:
+      - gucci_group_boss
       - gucci_group_ceo
     description: Helps define governance, decision rights, ownership, and rollout implications.
 
   - tool_id: rollout_calendar_builder
     allowed_agents:
+      - gucci_group_boss
       - regional_comms_manager
     description: Helps create a phased rollout timeline.
 
   - tool_id: localization_checklist
     allowed_agents:
+      - gucci_group_boss
       - regional_comms_manager
     description: Helps adapt examples, language, timing, and channel mix by region.
 
   - tool_id: adoption_kpi_builder
     allowed_agents:
+      - gucci_group_boss
       - regional_comms_manager
       - gucci_group_chro
     description: Helps define leading and lagging adoption metrics.

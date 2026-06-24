@@ -1,10 +1,27 @@
 class IntentRouter:
+    BOSS_AGENT_ID = "gucci_group_boss"
+    SPECIALIST_AGENT_IDS = ["gucci_group_ceo", "gucci_group_chro", "regional_comms_manager"]
+
     INTENT_KEYWORDS = {
         "group_dna": ["dna", "strategy", "culture", "autonomy", "non-negotiable", "ceo"],
         "competency_framework": ["competency", "behavior", "vision", "entrepreneurship", "passion", "trust"],
         "feedback_coaching": ["360", "feedback", "coaching", "survey", "rater"],
         "talent_mobility": ["mobility", "succession", "rotation"],
-        "regional_rollout": ["regional", "rollout", "communication", "trainer", "localization", "adoption"],
+        "regional_rollout": [
+            "regional",
+            "rollout",
+            "communication",
+            "communications",
+            "campaign",
+            "comms",
+            "truyền thông",
+            "truyen thong",
+            "kênh",
+            "kenh",
+            "trainer",
+            "localization",
+            "adoption",
+        ],
     }
 
     PRIMARY_BY_INTENT = {
@@ -31,6 +48,14 @@ class IntentRouter:
         retrieved_context: list[dict],
     ) -> dict[str, object]:
         intent = self._detect_intent(user_message)
+        if target_agent_id == self.BOSS_AGENT_ID:
+            return {
+                "intent": intent,
+                "primary_agent": self.BOSS_AGENT_ID,
+                "supporting_agents": self.SPECIALIST_AGENT_IDS,
+                "rag_query": self._build_rag_query(user_message, intent, shared_state),
+            }
+
         primary_agent = target_agent_id or self.PRIMARY_BY_INTENT.get(intent, "gucci_group_chro")
         supporting_agents = [
             agent_id

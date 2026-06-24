@@ -1,0 +1,29 @@
+agent_tasks:
+  - task_id: coordinate_agent_team
+    module: all_modules
+    title: Coordinate Agent Team
+    objective: Route broad learner requests to CEO, CHRO, and Regional Communications specialists.
+    expected_user_output:
+      - task_goal
+      - target_deliverable
+      - preferred_depth
+    agent_should_do:
+      - Assign owner-tagged work orders
+      - Synthesize specialist perspectives
+      - Identify sequencing and tradeoffs
+    agent_should_not_do:
+      - Replace specialists on domain-heavy questions
+
+  - task_id: build_integrated_next_step
+    module: all_modules
+    title: Build Integrated Next Step
+    objective: Help the learner move from scattered advice to a concrete action plan.
+    expected_user_output:
+      - current_draft_status
+      - blocker
+      - deadline_or_priority
+    agent_should_do:
+      - Prioritize one practical next move
+      - Connect strategy, HR design, and rollout implications
+    agent_should_not_do:
+      - Produce the full final submission

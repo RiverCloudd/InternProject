@@ -56,6 +56,8 @@ class RAGIndexBuilder:
             if not root.exists():
                 continue
             for path in sorted(root.rglob("*")):
+                if path.name == "system_prompt.md":
+                    continue
                 if path.is_file() and path.suffix in self.INDEX_EXTENSIONS:
                     chunks.extend(self._chunk_file(path))
         return chunks
@@ -99,18 +101,20 @@ class RAGIndexBuilder:
 
     def _agent_scope(self, source_path: str) -> list[str]:
         if "gucci_group_ceo" in source_path:
-            return ["gucci_group_ceo"]
+            return ["gucci_group_boss", "gucci_group_ceo"]
         if "gucci_group_chro" in source_path:
-            return ["gucci_group_chro"]
+            return ["gucci_group_boss", "gucci_group_chro"]
         if "regional_comms_manager" in source_path:
-            return ["regional_comms_manager"]
+            return ["gucci_group_boss", "regional_comms_manager"]
+        if "gucci_group_boss" in source_path:
+            return ["gucci_group_boss"]
         if "module_1" in source_path or "group_dna" in source_path:
-            return ["gucci_group_ceo", "gucci_group_chro"]
+            return ["gucci_group_boss", "gucci_group_ceo", "gucci_group_chro"]
         if "module_2" in source_path or "360" in source_path or "coaching" in source_path:
-            return ["gucci_group_chro"]
+            return ["gucci_group_boss", "gucci_group_chro"]
         if "module_3" in source_path or "rollout" in source_path:
-            return ["regional_comms_manager", "gucci_group_chro"]
-        return ["gucci_group_ceo", "gucci_group_chro", "regional_comms_manager"]
+            return ["gucci_group_boss", "regional_comms_manager", "gucci_group_chro"]
+        return ["gucci_group_boss", "gucci_group_ceo", "gucci_group_chro", "regional_comms_manager"]
 
     def _content_type(self, source_path: str) -> str:
         if source_path.startswith("agents/"):
